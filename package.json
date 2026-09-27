@@ -1,0 +1,7 @@
+{
+  "name": "glyph-cache-benchmark",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "description": "Glyph cache vs bitmap font vs SDF font rendering benchmark (Canvas + FontFace + Web Worker + PerformanceObserver + IndexedDB)"
+}

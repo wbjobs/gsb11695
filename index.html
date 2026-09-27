@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>字形缓存 / 位图字体 / SDF 字体 — 10 万字符渲染对比</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>大量文本渲染对比：字形缓存 vs 位图字体 vs SDF 字体</h1>
+    <p class="sub">Canvas 2D + WebGL2 · FontFace API · Web Worker · PerformanceObserver · IndexedDB</p>
+  </header>
+
+  <section class="controls">
+    <label>渲染方案
+      <select id="schemeSelect">
+        <option value="glyph-cache" selected>字形缓存（LRU + 内存预算）</option>
+        <option value="bitmap">位图字体（固定分辨率图集）</option>
+        <option value="sdf">SDF 字体（WebGL2 着色器）</option>
+      </select>
+    </label>
+    <label>字体
+      <select id="fontSelect">
+        <option value="dejavu-sans" selected>DejaVu Sans</option>
+        <option value="dejavu-mono">DejaVu Sans Mono</option>
+        <option value="dejavu-serif">DejaVu Serif Bold</option>
+      </select>
+    </label>
+    <label>字符数
+      <input id="charCount" type="number" value="100000" min="1000" max="300000" step="1000">
+    </label>
+    <label>缩放 <span id="scaleVal">1.00×</span>
+      <input id="scaleRange" type="range" min="10" max="800" value="100">
+    </label>
+    <label>旋转 <span id="rotVal">0°</span>
+      <input id="rotationRange" type="range" min="0" max="360" value="0">
+    </label>
+    <label>缓存预算 (MB)
+      <input id="budgetInput" type="number" value="32" min="1" max="256">
+    </label>
+    <div class="btn-row">
+      <button id="fitBtn">适配视图</button>
+      <button id="regenBtn">重新生成文本</button>
+      <button id="invalidateBtn">缓存失效</button>
+      <button id="benchBtn">运行基准对比</button>
+      <label class="inline"><input id="animToggle" type="checkbox"> 连续渲染 (rAF)</label>
+    </div>
+  </section>
+
+  <main>
+    <div id="canvasWrap">
+      <canvas id="canvas2d"></canvas>
+      <canvas id="canvasgl" style="display:none"></canvas>
+    </div>
+    <aside>
+      <h2>状态</h2>
+      <div id="statusLine" class="status">初始化…</div>
+      <h2>实时统计</h2>
+      <pre id="statsPanel"></pre>
+      <h2>性能对照（60 帧）</h2>
+      <table class="bench">
+        <thead>
+          <tr><th>方案</th><th>avg ms</th><th>p95 ms</th><th>FPS</th><th>内存</th><th>备注</th></tr>
+        </thead>
+        <tbody id="benchBody"></tbody>
+      </table>
+      <h2>事件日志</h2>
+      <div id="logPanel" class="log"></div>
+    </aside>
+  </main>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

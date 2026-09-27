@@ -1,0 +1,99 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: #14161d;
+  color: #dfe3ee;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+header { padding: 10px 16px 4px; }
+header h1 { font-size: 17px; margin: 0; }
+header .sub { margin: 4px 0 0; font-size: 12px; color: #8b93a8; }
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  align-items: end;
+  padding: 10px 16px;
+  border-bottom: 1px solid #262a38;
+  font-size: 12px;
+}
+.controls label { display: flex; flex-direction: column; gap: 4px; color: #9aa3b8; }
+.controls select, .controls input[type="number"] {
+  background: #1d2029;
+  color: #dfe3ee;
+  border: 1px solid #333849;
+  border-radius: 4px;
+  padding: 4px 6px;
+  font-size: 12px;
+}
+.controls input[type="range"] { width: 140px; }
+.controls .inline { flex-direction: row; align-items: center; gap: 6px; }
+.btn-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.btn-row button {
+  background: #2b5cff;
+  color: #fff;
+  border: 0;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.btn-row button:hover { background: #3d6dff; }
+.btn-row button:disabled { background: #444a5c; cursor: wait; }
+#invalidateBtn { background: #b03a5b; }
+#invalidateBtn:hover { background: #c44a6c; }
+
+main { flex: 1; display: flex; min-height: 0; }
+
+#canvasWrap {
+  flex: 1;
+  position: relative;
+  background: #12141a;
+  overflow: hidden;
+}
+#canvasWrap canvas { position: absolute; inset: 0; display: block; }
+
+aside {
+  width: 360px;
+  border-left: 1px solid #262a38;
+  padding: 10px 14px;
+  overflow-y: auto;
+  font-size: 12px;
+}
+aside h2 { font-size: 12px; color: #8b93a8; margin: 12px 0 6px; text-transform: uppercase; letter-spacing: 0.06em; }
+.status { color: #7fd4a8; min-height: 16px; }
+#statsPanel {
+  background: #1a1d26;
+  border: 1px solid #262a38;
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin: 0;
+  white-space: pre-wrap;
+  font-size: 11.5px;
+  line-height: 1.6;
+}
+table.bench { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+table.bench th, table.bench td {
+  border: 1px solid #2a2f40;
+  padding: 4px 6px;
+  text-align: left;
+}
+table.bench th { background: #1d2029; color: #9aa3b8; }
+.log {
+  background: #10121a;
+  border: 1px solid #262a38;
+  border-radius: 6px;
+  padding: 6px 8px;
+  max-height: 220px;
+  overflow-y: auto;
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+  line-height: 1.7;
+  color: #a8e0c0;
+}
