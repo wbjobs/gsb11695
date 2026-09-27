@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>字形缓存渲染对比 Demo（Glyph Cache / Bitmap Font / SDF Font）</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+  <h1>大规模文本渲染对比：字形缓存 vs 位图字体 vs SDF 字体</h1>
+</header>
+<div id="app">
+  <aside id="panel">
+    <section>
+      <h2>渲染方案</h2>
+      <label><input type="radio" name="scheme" value="glyph" checked> 字形缓存（动态图集 + LRU）</label>
+      <label><input type="radio" name="scheme" value="bitmap"> 位图字体（固定尺寸图集）</label>
+      <label><input type="radio" name="scheme" value="sdf"> SDF 字体（Worker 生成 + WebGL）</label>
+      <label class="warn"><input type="checkbox" id="simulateSdfFail"> 模拟 SDF 构建失败（验证降级）</label>
+      <div id="fallbackBanner" class="banner hidden"></div>
+    </section>
+
+    <section>
+      <h2>字体</h2>
+      <select id="fontSelect">
+        <option value="system-sans">系统 sans-serif</option>
+        <option value="system-serif">系统 serif</option>
+        <option value="system-mono">系统 monospace</option>
+      </select>
+      <div class="row">
+        <input type="url" id="fontUrl" placeholder="字体 URL（woff2/ttf/otf）">
+        <button id="loadUrlBtn">加载</button>
+      </div>
+      <div class="row">
+        <input type="file" id="fontFile" accept=".ttf,.otf,.woff,.woff2">
+      </div>
+      <div id="fontStatus" class="muted">FontFace + IndexedDB 缓存</div>
+    </section>
+
+    <section>
+      <h2>视图</h2>
+      <label>字号 <span id="fontSizeVal">16</span>px
+        <input type="range" id="fontSize" min="10" max="96" value="16">
+      </label>
+      <label>缩放 <span id="scaleVal">1.00</span>x
+        <input type="range" id="scale" min="25" max="400" value="100">
+      </label>
+      <label>旋转 <span id="rotationVal">0</span>°
+        <input type="range" id="rotation" min="0" max="360" value="0">
+      </label>
+      <label>字符数
+        <select id="charCount">
+          <option value="10000">1 万</option>
+          <option value="50000">5 万</option>
+          <option value="100000" selected>10 万</option>
+        </select>
+      </label>
+      <div class="muted">滚轮滚动长文本，拖拽平移</div>
+    </section>
+
+    <section>
+      <h2>缓存与内存</h2>
+      <label>字形缓存预算 (MB)
+        <input type="number" id="cacheBudget" min="1" max="256" value="32">
+      </label>
+      <div class="row">
+        <button id="invalidateBtn">失效缓存</button>
+        <button id="clearFontCacheBtn">清空字体库</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>性能对照</h2>
+      <button id="benchBtn">运行基准测试（三方案）</button>
+      <div id="live" class="stats"></div>
+      <table id="benchTable" class="hidden">
+        <thead><tr><th>方案</th><th>帧均(ms)</th><th>渲染(ms)</th><th>FPS</th><th>冷启动(ms)</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <div id="observerStats" class="stats"></div>
+    </section>
+  </aside>
+
+  <main id="stage">
+    <canvas id="canvas2d"></canvas>
+    <canvas id="canvasgl" class="hidden"></canvas>
+  </main>
+</div>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

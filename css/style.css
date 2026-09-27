@@ -1,0 +1,42 @@
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font: 13px/1.5 -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: #1e1f24;
+  color: #d8d8dc;
+}
+header { padding: 8px 16px; background: #26272e; border-bottom: 1px solid #333; }
+header h1 { font-size: 15px; margin: 0; font-weight: 600; }
+#app { display: flex; height: calc(100vh - 41px); }
+#panel {
+  width: 320px; flex: none; overflow-y: auto;
+  padding: 10px 14px; background: #26272e; border-right: 1px solid #333;
+}
+#panel section { margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid #383941; }
+#panel h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: #9a9aa5; margin: 4px 0 8px; }
+#panel label { display: block; margin: 6px 0; }
+#panel input[type="range"] { width: 100%; }
+#panel input[type="url"], #panel input[type="number"], #panel select {
+  width: 100%; margin: 2px 0; padding: 4px 6px;
+  background: #1b1c20; color: #d8d8dc; border: 1px solid #44454d; border-radius: 4px;
+}
+#panel .row { display: flex; gap: 6px; align-items: center; margin: 4px 0; }
+#panel .row input { flex: 1; }
+button {
+  padding: 4px 10px; background: #3a6ea5; color: #fff; border: 0; border-radius: 4px; cursor: pointer;
+}
+button:hover { background: #4a7eb5; }
+.warn { color: #e0a34a; }
+.muted { color: #8a8b94; font-size: 12px; margin-top: 4px; }
+.banner {
+  margin-top: 6px; padding: 6px 8px; border-radius: 4px;
+  background: #5a3b1e; color: #ffcf99; font-size: 12px;
+}
+.hidden { display: none !important; }
+#stage { position: relative; flex: 1; background: #141518; overflow: hidden; }
+#stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.stats { font-family: ui-monospace, Consolas, monospace; font-size: 11px; white-space: pre-wrap; margin-top: 6px; color: #a9d3a9; }
+#observerStats { color: #9fb8d8; }
+table { border-collapse: collapse; width: 100%; margin-top: 8px; font-size: 11px; }
+th, td { border: 1px solid #44454d; padding: 3px 6px; text-align: right; }
+th { background: #2e2f37; }
